@@ -280,11 +280,12 @@ body {
   margin-bottom: 30px;
 }
 
-#weather-demo-button {
-  padding: 0.4rem 0.9rem;   
-  font-size: 0.9rem;        
-  border-width: 3px; 
-  margin-top: 0.75rem;       
+#weather-demo-button,
+#risk-demo-button {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9rem;
+  border-width: 3px;
+  margin-top: 0.75rem;
 }
 
 /* Footer Section */
@@ -474,6 +475,7 @@ body {
     max-width: 100%;
   }
 }
+
 
 
 
