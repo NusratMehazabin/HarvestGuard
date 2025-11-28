@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
       feature1Description: "Track your farm’s harvest and storage details with our easy-to-use management system.",
       feature2Heading: "Weather & Forecast Integration",
       feature2Description: "Get live weather data and forecasts to plan your harvest and storage effectively.",
+      weatherButton: "See Weather",
       feature3Heading: "Risk Alerts & Notifications",
       feature3Description: "Receive timely alerts to protect your crops from spoilage or adverse weather conditions.",
       howItWorksHeading: "How It Works",
@@ -155,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
       step1Description: "আপনার ফার্মের তথ্য দিন এবং আপনার ফসলগুলি ম্যাপ করুন।",
       step2Heading: "ধাপ ২: মনিটর করুন ও সতর্কতা পান",
       step2Description: "আপনার ফসলের জন্য সময়মতো আবহাওয়া ডেটা ও স্বাস্থ্য সতর্কতা পান।",
+      weatherButton: "আবহাওয়া দেখুন",
       step3Heading: "ধাপ ৩: নিরাপদভাবে ফসল সংগ্রহ ও সংরক্ষণ করুন",
       step3Description: "ক্ষতি কমাতে এবং ফলন বাড়াতে সুপারিশ অনুসরণ করুন।",
       ctaHeading: "শুরু করতে প্রস্তুত?",
@@ -227,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'cta-heading': 'ctaHeading',
       'cta-description': 'ctaDescription',
       'cta-register': 'ctaRegister',
+      'weather-demo-button': 'weatherButton',
 
       // NEW: Why Different
       'why-heading': 'whyHeading',
