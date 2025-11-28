@@ -281,7 +281,8 @@ body {
 }
 
 #weather-demo-button,
-#risk-demo-button {
+#risk-demo-button 
+#farm-demo-button {
   padding: 0.4rem 0.9rem;
   font-size: 0.9rem;
   border-width: 3px;
@@ -475,6 +476,7 @@ body {
     max-width: 100%;
   }
 }
+
 
 
 
