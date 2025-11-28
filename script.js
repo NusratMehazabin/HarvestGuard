@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
       featuresHeading: "What We Offer",
       feature1Heading: "Farm Management & Tracking",
       feature1Description: "Track your farm’s harvest and storage details with our easy-to-use management system.",
+      farmButton: "Farm Manager",
       feature2Heading: "Weather & Forecast Integration",
       feature2Description: "Get live weather data and forecasts to plan your harvest and storage effectively.",
       weatherButton: "See Weather",
@@ -148,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
       featuresHeading: "আমরা যা অফার করি",
       feature1Heading: "ফার্ম ম্যানেজমেন্ট ও ট্র্যাকিং",
       feature1Description: "আমাদের ব্যবস্থাপনা সিস্টেমের মাধ্যমে আপনার ফসলের সংগ্রহ এবং স্টোরেজ তথ্য ট্র্যাক করুন।",
+      farmButton: "ফার্ম ম্যানেজার দেখুন",
       feature2Heading: "আবহাওয়া ও পূর্বাভাস ইন্টিগ্রেশন",
       feature2Description: "আপনার ফসল এবং স্টোরেজ পরিকল্পনা করার জন্য লাইভ আবহাওয়া তথ্য ও পূর্বাভাস পান।",
       feature3Heading: "ঝুঁকি সতর্কতা ও নোটিফিকেশন",
@@ -233,6 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'cta-register': 'ctaRegister',
       'weather-demo-button': 'weatherButton',
       'risk-demo-button': 'riskButton',
+      'farm-demo-button': 'farmButton',
 
       // NEW: Why Different
       'why-heading': 'whyHeading',
@@ -313,4 +316,5 @@ document.addEventListener('DOMContentLoaded', function () {
   applyLanguage('en');
   setActiveLanguageButton('en');
 });
+
 
