@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
       weatherButton: "See Weather",
       feature3Heading: "Risk Alerts & Notifications",
       feature3Description: "Receive timely alerts to protect your crops from spoilage or adverse weather conditions.",
+      riskButton: "Risk Forecast",
       howItWorksHeading: "How It Works",
       step1Heading: "Step 1: Register Your Farm",
       step1Description: "Enter your farm details and map your crops.",
@@ -159,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
       weatherButton: "আবহাওয়া দেখুন",
       step3Heading: "ধাপ ৩: নিরাপদভাবে ফসল সংগ্রহ ও সংরক্ষণ করুন",
       step3Description: "ক্ষতি কমাতে এবং ফলন বাড়াতে সুপারিশ অনুসরণ করুন।",
+      riskButton: "ঝুঁকি পূর্বাভাস",
       ctaHeading: "শুরু করতে প্রস্তুত?",
       ctaDescription: "খাদ্য ক্ষতি কমাতে এবং কৃষির উৎপাদনশীলতা বাড়াতে আমাদের সঙ্গে যোগ দিন। আজই নিবন্ধন করুন!",
       ctaRegister: "এখনই নিবন্ধন করুন",
@@ -230,6 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'cta-description': 'ctaDescription',
       'cta-register': 'ctaRegister',
       'weather-demo-button': 'weatherButton',
+      'risk-demo-button': 'riskButton',
 
       // NEW: Why Different
       'why-heading': 'whyHeading',
@@ -310,3 +313,4 @@ document.addEventListener('DOMContentLoaded', function () {
   applyLanguage('en');
   setActiveLanguageButton('en');
 });
+
