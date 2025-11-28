@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Health Scanner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Language Selection -->
+        <div class="language-selector">
+            <label for="language" id="languageLabel">Choose Language:</label>
+            <select id="language" onchange="setLanguage()">
+                <option value="en">English</option>
+                <option value="bn">বাংলা</option>
+            </select>
+        </div>
+
+        <!-- Headline and Description -->
+        <h1 id="headline">Basic Crop Health Scanner</h1>
+        <p id="description">Upload an image of a crop to determine whether it is "Fresh" or "Rotten".</p>
+
+        <!-- Image Upload Section -->
+        <div class="upload-section">
+            <input type="file" id="imageInput" accept="image/*">
+            <button onclick="scanCropHealth()" id="scanButton">Scan Crop</button>
+        </div>
+
+        <!-- Result Section -->
+        <div id="result" class="result-section">
+            <h2 id="resultHeading">Result:</h2>
+            <p id="healthStatus">Please upload an image for analysis.</p>
+            <img id="cropImage" src="" alt="" style="max-width: 100%; margin-top: 10px;">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
