@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* Vertical gradient from top to bottom */
+    background: linear-gradient(to bottom, #267e49, #74b870); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.weather-container {
+    background-color: #d6e6d9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 320px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Align language selector and upazila selector in separate lines */
+.selector-container {
+    display: flex;
+    flex-direction: column; /* Change to column for vertical layout */
+    gap: 10px; /* Space between the labels and dropdowns */
+    margin-bottom: 15px;
+}
+
+/* Ensure that labels are aligned properly with the dropdowns */
+.selector-container label {
+    margin-bottom: 5px; /* Add space between label and dropdown */
+}
+
+/* Dropdowns take full width of the container */
+.selector-container select {
+    width: 100%;
+}
+
+/* Style for the button */
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#weather-info {
+    margin-top: 20px;
+    text-align: left;
+    word-wrap: break-word; /* Ensure long text wraps */
+}
