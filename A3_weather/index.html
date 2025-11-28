@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HarvestGuard - Weather Integration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="weather-container">
+        <h1 id="weather-heading">Weather Forecast</h1>
+
+        <!-- Language Selector and Upazila Selector in One Line -->
+        <div class="selector-container">
+            <label for="language" id="languageLabel">Choose Language:</label>
+            <select id="language" onchange="setLanguage()">
+                <option value="en">English</option>
+                <option value="bn">বাংলা</option>
+            </select>
+
+            <label for="upazila" id="upazilaLabel">Select Your Upazila:</label>
+            <select id="upazila">
+                <!-- Both Bangla and English names for Upazilas -->
+                <option value="Dhaka">ঢাকা / Dhaka</option>
+                <option value="Chittagong">চট্টগ্রাম / Chittagong</option>
+                <option value="Rajshahi">রাজশাহী / Rajshahi</option>
+                <!-- Add more Upazilas with both Bangla and English names -->
+            </select>
+        </div>
+        
+        <button onclick="getWeatherData()">Get Weather</button>
+        
+        <div id="weather-info">
+            <p id="temp"></p>
+            <p id="humidity"></p>
+            <p id="rain"></p>
+            <p id="advisory"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
