@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>B1 Local Risk Map</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+</head>
+<body>
+
+<header>
+  <div id="appTitle"></div>
+
+  <div class="top-right">
+      <select id="langToggle">
+        <option value="bn">বাংলা</option>
+        <option value="en">English</option>
+      </select>
+      <button id="refreshBtn"></button>
+      <button id="exportBtn"></button>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+
+      <h2 id="panelTitle"></h2>
+
+      <div id="noProfile" class="muted"></div>
+
+      <div id="profileDetails">
+
+        <h3 id="pName"></h3>
+        <div id="pPhone" class="muted"></div>
+        <div id="pEmail" class="muted"></div>
+        <div id="pDistrict" class="muted"></div>
+
+      </div>
+
+      <h3 id="batchTitle"></h3>
+      <div id="batchList"></div>
+
+      <button id="openDummy" class="green-btn"></button>
+      <button id="clearLocal" class="gray-btn"></button>
+
+      <h3 id="legendTitle"></h3>
+
+      <div class="legend">
+        <div><span class="dot low"></span> <span class="legend-low"></span></div>
+        <div><span class="dot med"></span> <span class="legend-medium"></span></div>
+        <div><span class="dot high"></span> <span class="legend-high"></span></div>
+        <div><span class="dot farmer"></span> <span class="legend-farmer"></span></div>
+      </div>
+
+      <div id="footerText" class="footer-text"></div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+
+      <div class="top-controls-row">
+          <label id="districtLabel"></label>
+          <select id="districtSelect"></select>
+
+          <!-- Risk filter buttons (kept in original position) -->
+          <button class="filterBtn" data-risk="All" id="fAll">All</button>
+          <button class="filterBtn" data-risk="Low" id="fLow">Low</button>
+          <button class="filterBtn" data-risk="Medium" id="fMed">Medium</button>
+          <button class="filterBtn" data-risk="High" id="fHigh">High</button>
+      </div>
+
+      <div id="map"></div>
+      <div id="statusBar"></div>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
