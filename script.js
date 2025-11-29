@@ -71,15 +71,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // === Scroll to Features Section on "Get Started" Click ===
-const getStartedBtn = document.getElementById("cta-button");
-const featuresSection = document.querySelector(".features");
+// === Scroll to Features Section on "Get Started" Click ===
+document.getElementById("cta-button").addEventListener("click", () => {
+    const target = document.getElementById("features-section");
 
-if (getStartedBtn && featuresSection) {
-  getStartedBtn.addEventListener("click", () => {
-    featuresSection.scrollIntoView({ behavior: "smooth" });
-  });
-};
+    const topPos = target.getBoundingClientRect().top + window.pageYOffset - 60;
+
+    window.scrollTo({
+        top: topPos,
+        behavior: "smooth"
+    });
+});
+
 
 
   // ------------------------------
@@ -327,6 +330,7 @@ if (getStartedBtn && featuresSection) {
   applyLanguage('en');
   setActiveLanguageButton('en');
 });
+
 
 
 
