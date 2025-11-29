@@ -64,8 +64,10 @@ const i18n = {
         lblBadges: "Achievements",
         connecting: "Connecting to Firebase...",
         connected: "✓ Connected to Firebase",
-        disconnected: "✗ Not connected to Firebase"
-    },
+        disconnected: "✗ Not connected to Firebase",
+        goHome: "Go Back to Home",
+           
+        },
     bn: {
         regTitle: "কৃষক নিবন্ধন",
         btnRegister: "নিবন্ধন করুন",
@@ -95,7 +97,8 @@ const i18n = {
         lblBadges: "অর্জন",
         connecting: "ফায়ারবেসে সংযুক্ত হচ্ছে...",
         connected: "✓ ফায়ারবেসে সংযুক্ত",
-        disconnected: "✗ ফায়ারবেসে সংযুক্ত নয়"
+        disconnected: "✗ ফায়ারবেসে সংযুক্ত নয়",
+        goHome: "হোমে ফিরে যান",
     }
 };
 
@@ -406,4 +409,5 @@ window.addEventListener('DOMContentLoaded', function() {
 
     // Initialize UI text
     updateUIText();
+
 });
