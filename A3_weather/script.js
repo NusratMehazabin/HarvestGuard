@@ -25,6 +25,21 @@ function setLanguage() {
         document.getElementById('weather-heading').innerText = "Weather Forecast";
         document.getElementById('languageLabel').innerText = "Choose Language:";
         document.getElementById('upazilaLabel').innerText = "Select Your Upazila:";
+        updateGoHomeButton();
+    }
+}
+const i18n = {
+    en: {
+        goHome: "Go Back to Home 🏡"
+    },
+    bn: {
+        goHome: "হোমে ফিরে যান 🏡"
+    }
+};
+function updateGoHomeButton() {
+    const btn = document.getElementById("go-home");
+    if (btn) {
+        btn.innerText = i18n[currentLanguage].goHome;
     }
 }
 
@@ -118,3 +133,13 @@ function getAdvisory(language, englishAdvisory) {
     }
     return englishAdvisory;
 }
+document.addEventListener("DOMContentLoaded", () => {
+    const homeBtn = document.getElementById("go-home");
+    homeBtn.addEventListener("click", () => {
+        window.location.href = "https://nusratmehazabin.github.io/HarvestGuard/";
+    });
+
+    updateGoHomeButton(); // Default language text set on page load
+});
+
+
