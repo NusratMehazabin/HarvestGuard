@@ -65,7 +65,7 @@ const i18n = {
         connecting: "Connecting to Firebase...",
         connected: "✓ Connected to Firebase",
         disconnected: "✗ Not connected to Firebase",
-        goHome: "Go Back to Home",
+        goHome: "Go Back to Home 🏡",
            
         },
     bn: {
@@ -98,7 +98,7 @@ const i18n = {
         connecting: "ফায়ারবেসে সংযুক্ত হচ্ছে...",
         connected: "✓ ফায়ারবেসে সংযুক্ত",
         disconnected: "✗ ফায়ারবেসে সংযুক্ত নয়",
-        goHome: "হোমে ফিরে যান",
+        goHome: "হোমে ফিরে যান 🏡",
     }
 };
 
