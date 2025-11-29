@@ -67,7 +67,8 @@ const uiText = {
     thRain: "Rain probability (%)",
     resultTitle: "Risk summary",
     footer:
-      "HackFest 2025 – Prediction, Weather Integration & Risk Forecasting"
+      "© 2025 HarvestGuard. All Rights Reserved.",
+    goHome: "Go Back to Home 🏡",
   },
   bn: {
     brandSub: "ঝুঁকি পূর্বাভাস",
@@ -91,7 +92,8 @@ const uiText = {
     thRain: "বৃষ্টির সম্ভাবনা (%)",
     resultTitle: "ঝুঁকি সারাংশ",
     footer:
-      "হ্যাকফেস্ট ২০২৫ – প্রেডিকশন, আবহাওয়া ইন্টিগ্রেশন ও ঝুঁকি পূর্বাভাস"
+      "© ২০২৫ হারভেস্টগার্ড। সর্বস্বত্ব সংরক্ষিত।",
+    goHome: "হোমে ফিরে যান 🏡",
   }
 };
 
@@ -200,6 +202,8 @@ function applyLanguage(lang) {
   const set = (id, key) => {
     const el = document.getElementById(id);
     if (el && t[key] != null) el.textContent = t[key];
+    document.getElementById("go-home").textContent = t.goHome;
+
   };
 
   set("brand-sub", "brandSub");
@@ -360,4 +364,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // initial forecast render for default division
   updateForecastForSelected();
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const homeBtn = document.getElementById("go-home");
+
+    if (homeBtn) {
+        homeBtn.addEventListener("click", () => {
+            window.location.href = "https://nusratmehazabin.github.io/HarvestGuard/";
+        });
+    }
+});
+
 
