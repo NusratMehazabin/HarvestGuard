@@ -1,6 +1,22 @@
 const apiKey = "83d0172bfdd2a9497f8dfefeeda4a6a6"; // Your OpenWeatherMap API key
 let currentLanguage = "en"; // Default language is English
 
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("go-home").addEventListener("click", () => {
+        window.location.href = "https://nusratmehazabin.github.io/HarvestGuard/";
+    });
+});
+
+const i18n = {
+    en: {
+        goHome: "Go Back to Home 🏡"
+    },
+    bn: {
+        goHome: "হোমে ফিরে যান 🏡"
+    }
+};
+
+
 // Mapping Bangla and English Upazila names to English city names
 const upazilaMapping = {
     "ঢাকা": "Dhaka",
@@ -25,7 +41,8 @@ function setLanguage() {
         document.getElementById('weather-heading').innerText = "Weather Forecast";
         document.getElementById('languageLabel').innerText = "Choose Language:";
         document.getElementById('upazilaLabel').innerText = "Select Your Upazila:";
-        updateGoHomeButton();
+        document.getElementById("go-home").innerText = i18n[currentLanguage].goHome;
+
     }
 }
 const i18n = {
@@ -133,13 +150,5 @@ function getAdvisory(language, englishAdvisory) {
     }
     return englishAdvisory;
 }
-document.addEventListener("DOMContentLoaded", () => {
-    const homeBtn = document.getElementById("go-home");
-    homeBtn.addEventListener("click", () => {
-        window.location.href = "https://nusratmehazabin.github.io/HarvestGuard/";
-    });
-
-    updateGoHomeButton(); // Default language text set on page load
-});
 
 
