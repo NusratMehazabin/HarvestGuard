@@ -79,7 +79,7 @@ if (getStartedBtn && featuresSection) {
   getStartedBtn.addEventListener("click", () => {
     featuresSection.scrollIntoView({ behavior: "smooth" });
   });
-}
+};
 
 
   // ------------------------------
@@ -327,6 +327,7 @@ if (getStartedBtn && featuresSection) {
   applyLanguage('en');
   setActiveLanguageButton('en');
 });
+
 
 
 
