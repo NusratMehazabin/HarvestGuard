@@ -85,7 +85,7 @@ document.getElementById("cta-button").addEventListener("click", () => {
 
   // Redirect Register Now button to Login/Registration System (A2)
 document.getElementById("cta-register").addEventListener("click", () => {
-    window.location.href = "/HarvestGuard/A2/index.html";
+    window.location.href = "A2_Farm_Management/index.html";
 });
 
 
@@ -335,6 +335,7 @@ document.getElementById("cta-register").addEventListener("click", () => {
   applyLanguage('en');
   setActiveLanguageButton('en');
 });
+
 
 
 
