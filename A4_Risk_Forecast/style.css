@@ -277,3 +277,24 @@ body {
     grid-area: result;
   }
 }
+#go-home {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #166e2e;
+    color: white;
+    padding: 8px 22px;
+    border: none;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 5000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+#go-home:hover {
+    background: #0f5e25;
+}
+
+
