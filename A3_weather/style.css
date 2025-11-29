@@ -60,23 +60,29 @@ button:hover {
     word-wrap: break-word; /* Ensure long text wraps */
 }
 #go-home {
-    position: absolute;
+    position: fixed;     /* always stays at the top */
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
     background: #2E7D32;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 25px;
     border: none;
     border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    width: auto;
-    z-index: 1000;
+    z-index: 9999;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
 #go-home:hover {
     background: #256928;
 }
+
+
+#go-home:hover {
+    background: #256928;
+}
+
 
