@@ -60,7 +60,7 @@ button:hover {
     word-wrap: break-word; /* Ensure long text wraps */
 }
 #go-home {
-    position: fixed;     /* always stays at the top */
+    position: fixed;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
@@ -73,11 +73,9 @@ button:hover {
     font-weight: 600;
     cursor: pointer;
     z-index: 9999;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
 #go-home:hover {
     background: #256928;
 }
-
 
