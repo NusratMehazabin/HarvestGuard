@@ -71,6 +71,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // === Scroll to Features Section on "Get Started" Click ===
+const getStartedBtn = document.getElementById("cta-button");
+const featuresSection = document.querySelector(".features");
+
+if (getStartedBtn && featuresSection) {
+  getStartedBtn.addEventListener("click", () => {
+    featuresSection.scrollIntoView({ behavior: "smooth" });
+  });
+}
+
+
   // ------------------------------
   // Language change functionality
   // ------------------------------
@@ -316,5 +327,6 @@ document.addEventListener('DOMContentLoaded', function () {
   applyLanguage('en');
   setActiveLanguageButton('en');
 });
+
 
 
