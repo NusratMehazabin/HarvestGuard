@@ -113,6 +113,9 @@ document.getElementById("cta-register").addEventListener("click", () => {
       feature3Heading: "Risk Alerts & Notifications",
       feature3Description: "Receive timely alerts to protect your crops from spoilage or adverse weather conditions.",
       riskButton: "Risk Forecast",
+      feature4Heading: "Interactive Risk Map",
+feature4Description: "View real-time risk zones on the map and track storage safety.",
+b1Button: "Open Risk Map",
       howItWorksHeading: "How It Works",
       step1Heading: "Step 1: Register Your Farm",
       step1Description: "Enter your farm details and map your crops.",
@@ -182,6 +185,9 @@ document.getElementById("cta-register").addEventListener("click", () => {
       step3Heading: "ধাপ ৩: নিরাপদভাবে ফসল সংগ্রহ ও সংরক্ষণ করুন",
       step3Description: "ক্ষতি কমাতে এবং ফলন বাড়াতে সুপারিশ অনুসরণ করুন।",
       riskButton: "ঝুঁকি পূর্বাভাস",
+      feature4Heading: "ইন্টারেক্টিভ রিস্ক ম্যাপ",
+feature4Description: "রিয়েল-টাইম রিস্ক জোন দেখুন এবং স্টোরেজ নিরাপত্তা যাচাই করুন।",
+b1Button: "রিস্ক ম্যাপ খুলুন",
       ctaHeading: "শুরু করতে প্রস্তুত?",
       ctaDescription: "খাদ্য ক্ষতি কমাতে এবং কৃষির উৎপাদনশীলতা বাড়াতে আমাদের সঙ্গে যোগ দিন। আজই নিবন্ধন করুন!",
       ctaRegister: "এখনই নিবন্ধন করুন",
@@ -242,6 +248,9 @@ document.getElementById("cta-register").addEventListener("click", () => {
       'feature2-description': 'feature2Description',
       'feature3-heading': 'feature3Heading',
       'feature3-description': 'feature3Description',
+      'feature4-heading': 'feature4Heading',
+      'feature4-description': 'feature4Description',
+      'b1-button': 'b1Button',
       'how-it-works-heading': 'howItWorksHeading',
       'step1-heading': 'step1Heading',
       'step1-description': 'step1Description',
@@ -335,6 +344,7 @@ document.getElementById("cta-register").addEventListener("click", () => {
   applyLanguage('en');
   setActiveLanguageButton('en');
 });
+
 
 
 
