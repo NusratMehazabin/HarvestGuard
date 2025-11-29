@@ -411,3 +411,13 @@ window.addEventListener('DOMContentLoaded', function() {
     updateUIText();
 
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const homeBtn = document.getElementById("go-home");
+
+    if (homeBtn) {
+        homeBtn.addEventListener("click", () => {
+            window.location.href = "https://nusratmehazabin.github.io/HarvestGuard/";
+        });
+    }
+});
+
