@@ -84,13 +84,9 @@ document.getElementById("cta-button").addEventListener("click", () => {
 });
 
   // Redirect Register Now button to Login/Registration System (A2)
-const registerBtn = document.getElementById("cta-register");
-
-if (registerBtn) {
-  registerBtn.addEventListener("click", () => {
-    window.location.href = "A2/index.html";
-  });
-}
+document.getElementById("cta-register").addEventListener("click", () => {
+    window.location.href = "/HarvestGuard/A2/index.html";
+});
 
 
 
@@ -339,6 +335,7 @@ if (registerBtn) {
   applyLanguage('en');
   setActiveLanguageButton('en');
 });
+
 
 
 
