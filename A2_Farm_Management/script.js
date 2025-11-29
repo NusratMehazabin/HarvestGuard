@@ -19,7 +19,8 @@ const db = getDatabase(app);
 
 // Global variables
 let currentUser = null;
-let currentLang = 'en';
+let currentLang = localStorage.getItem('HG_LANG') || 'en';
+let isConnected = false; // firebase connection flag
 
 // District mapping for Bangladesh
 const districtMap = {
@@ -66,8 +67,7 @@ const i18n = {
         connected: "✓ Connected to Firebase",
         disconnected: "✗ Not connected to Firebase",
         goHome: "Go Back to Home 🏡",
-           
-        },
+    },
     bn: {
         regTitle: "কৃষক নিবন্ধন",
         btnRegister: "নিবন্ধন করুন",
@@ -107,10 +107,12 @@ const connectedRef = ref(db, ".info/connected");
 onValue(connectedRef, (snap) => {
     const statusEl = document.getElementById('connection-status');
     if (snap.val() === true) {
+        isConnected = true;
         statusEl.className = 'connection-status connected';
         statusEl.innerHTML = '<span data-i18n="connected">✓ Connected to Firebase</span>';
         console.log("%cConnected to Firebase!", "color:lime;font-size:18px;font-weight:bold");
     } else {
+        isConnected = false;
         statusEl.className = 'connection-status disconnected';
         statusEl.innerHTML = '<span data-i18n="disconnected">✗ Not connected to Firebase</span>';
         console.log("%cNot connected to Firebase", "color:red;font-size:18px");
@@ -141,6 +143,7 @@ window.showView = function(viewId) {
 window.updateLanguage = function() {
     const selectEl = document.getElementById('languageSelect');
     currentLang = selectEl.value;
+    localStorage.setItem('HG_LANG', currentLang);
     updateUIText();
 }
 
@@ -223,31 +226,59 @@ window.handleLogin = async function(e) {
 
     try {
         const userRef = ref(db, 'users/' + phone);
-        const snapshot = await get(userRef);
 
-        if (!snapshot.exists()) {
-            alert('User not found! Please register first.');
-            return;
+        if (isConnected) {
+            const snapshot = await get(userRef);
+
+            if (!snapshot.exists()) {
+                alert('User not found! Please register first.');
+                return;
+            }
+
+            const userData = snapshot.val();
+
+            if (userData.password !== password) {
+                alert('Incorrect password! Please try again.');
+                return;
+            }
+
+            // Set current user
+            currentUser = {
+                phone: phone,
+                name: userData.name,
+                email: userData.email,
+                badges: userData.badges || []
+            };
+
+            // ==== PATCH: export user to localStorage so B1 can read it ====
+            try {
+              localStorage.setItem('HG_ACTIVE_USER', JSON.stringify(currentUser));
+            } catch(e) {
+              console.warn('Could not set HG_ACTIVE_USER in localStorage', e);
+            }
+            // ============================================================
+
+            // Load dashboard from Firebase (preferred)
+            await loadDashboard();
+            document.getElementById('form-login').reset();
+        } else {
+            // offline: try localStorage
+            const raw = localStorage.getItem('HG_ACTIVE_USER');
+            if(raw){
+                const u = JSON.parse(raw);
+                if(u.phone === phone){
+                    // NOTE: cannot verify password offline (demo fallback)
+                    currentUser = u;
+                    alert('Offline mode: loaded local profile (password not verified).');
+                    await loadDashboard(true); // indicate local fallback
+                    document.getElementById('form-login').reset();
+                } else {
+                    alert('Offline and no matching local user found. Please connect to internet or register earlier.');
+                }
+            } else {
+                alert('Offline and no local data. Connect to internet to login.');
+            }
         }
-
-        const userData = snapshot.val();
-
-        if (userData.password !== password) {
-            alert('Incorrect password! Please try again.');
-            return;
-        }
-
-        // Set current user
-        currentUser = {
-            phone: phone,
-            name: userData.name,
-            email: userData.email,
-            badges: userData.badges || []
-        };
-
-        // Load dashboard
-        loadDashboard();
-        document.getElementById('form-login').reset();
     } catch (error) {
         console.error('Login error:', error);
         alert('Login failed: ' + error.message);
@@ -256,34 +287,60 @@ window.handleLogin = async function(e) {
 
 // Logout handler
 window.handleLogout = function() {
-    if (confirm('Are you sure you want to logout?')) {
+    if (confirm((currentLang==='bn'? 'নিশ্চিত কি আপনি লগআউট করতে চান?':'Are you sure you want to logout?'))) {
         currentUser = null;
+        // ==== PATCH: remove exported local keys on logout ====
+        try {
+          localStorage.removeItem('HG_ACTIVE_USER');
+          localStorage.removeItem('HG_ACTIVE_BATCHES');
+        } catch(e){
+          console.warn('Could not clear HG_ACTIVE_* keys', e);
+        }
+        // =====================================================
         showView('view-login');
     }
 }
 
 // Load dashboard with user data
-async function loadDashboard() {
+async function loadDashboard(localFallback=false) {
     showView('view-dashboard');
 
     // Update welcome message
-    document.getElementById('user-welcome').textContent = `Welcome, ${currentUser.name}`;
+    document.getElementById('user-welcome').textContent = currentUser ? `${(currentLang==='bn'?'স্বাগতম':'Welcome')}, ${currentUser.name}` : (currentLang==='bn'?'স্বাগতম':'Welcome');
 
     try {
-        // Fetch user's batches
-        const batchesRef = ref(db, 'batches/' + currentUser.phone);
-        const snapshot = await get(batchesRef);
-
         let batches = [];
-        if (snapshot.exists()) {
-            const batchData = snapshot.val();
-            batches = Object.entries(batchData).map(([id, batch]) => ({
-                id: id,
-                ...batch
-            }));
+
+        if(isConnected && !localFallback) {
+            // try firebase
+            const batchesRef = ref(db, 'batches/' + currentUser.phone);
+            const snapshot = await get(batchesRef);
+
+            if (snapshot.exists()) {
+                const batchData = snapshot.val();
+                batches = Object.entries(batchData).map(([id, batch]) => ({
+                    id: id,
+                    ...batch
+                }));
+
+                // mirror to localStorage
+                try {
+                  localStorage.setItem('HG_ACTIVE_BATCHES', JSON.stringify(batches));
+                } catch(e){ console.warn('could not mirror batches', e); }
+            } else {
+                // no batches on Firebase -> clear local mirror for this user
+                try {
+                  localStorage.setItem('HG_ACTIVE_BATCHES', JSON.stringify([]));
+                } catch(e){}
+            }
+        } else {
+            // offline or localFallback -> read from localStorage if present
+            const raw = localStorage.getItem('HG_ACTIVE_BATCHES');
+            if(raw) batches = JSON.parse(raw);
+            else batches = []; // nothing
         }
 
-        // Update statistics
+        // Update stats
         document.getElementById('stat-count').textContent = batches.length;
         const totalWeight = batches.reduce((sum, batch) => sum + Number(batch.weight || 0), 0);
         document.getElementById('stat-weight').textContent = totalWeight.toFixed(1) + " kg";
@@ -293,7 +350,7 @@ async function loadDashboard() {
         tbody.innerHTML = '';
 
         if (batches.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#999;">No batches yet</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#999;">${currentLang==='bn'?'কোনো ব্যাচ নেই':'No batches yet'}</td></tr>`;
         } else {
             batches.forEach(batch => {
                 const row = document.createElement('tr');
@@ -319,11 +376,11 @@ async function loadDashboard() {
                 badgeContainer.appendChild(badgeEl);
             });
         } else {
-            badgeContainer.innerHTML = '<span style="color:#999; font-size:12px">No badges yet</span>';
+            badgeContainer.innerHTML = `<span style="color:#999; font-size:12px">${currentLang==='bn'?'কোনো অবদানের নেই':'No badges yet'}</span>`;
         }
     } catch (error) {
         console.error('Dashboard load error:', error);
-        alert('Failed to load dashboard data');
+        alert((currentLang==='bn'?'ড্যাশবোর্ড লোড ব্যর্থ':'Failed to load dashboard data'));
     }
 }
 
@@ -342,40 +399,72 @@ window.handleAddBatch = async function(e) {
     };
 
     try {
-        const batchesRef = ref(db, 'batches/' + currentUser.phone);
-        const newBatchRef = push(batchesRef);
-        await set(newBatchRef, batchData);
+        if(isConnected) {
+            const batchesRef = ref(db, 'batches/' + currentUser.phone);
+            const newBatchRef = push(batchesRef);
+            await set(newBatchRef, batchData);
 
-        alert('Batch added successfully!');
-        document.getElementById('form-add-batch').reset();
-        document.getElementById('batch-district').disabled = true;
+            // mirror to localStorage after successful write
+            try {
+              // get existing mirror
+              const raw = localStorage.getItem('HG_ACTIVE_BATCHES');
+              const arr = raw ? JSON.parse(raw) : [];
+              arr.push({ id: newBatchRef.key || ('b_' + Date.now()), ...batchData });
+              localStorage.setItem('HG_ACTIVE_BATCHES', JSON.stringify(arr));
+            } catch(e) { console.warn('mirror after add failed', e); }
 
-        // Reload dashboard
-        loadDashboard();
+            alert(currentLang==='bn' ? 'ব্যাচ সফলভাবে যোগ করা হয়েছে!' : 'Batch added successfully!');
+            document.getElementById('form-add-batch').reset();
+            document.getElementById('batch-district').disabled = true;
+
+            // Reload dashboard
+            await loadDashboard();
+        } else {
+            // offline: store locally (push with client id)
+            const clientId = 'local_' + Date.now();
+            try {
+              const raw = localStorage.getItem('HG_ACTIVE_BATCHES');
+              const arr = raw ? JSON.parse(raw) : [];
+              arr.push({ id: clientId, ...batchData });
+              localStorage.setItem('HG_ACTIVE_BATCHES', JSON.stringify(arr));
+            } catch(e) { console.warn('local save failed', e); }
+
+            alert(currentLang==='bn' ? 'অফলাইন: ব্যাচ লোকালি সেভ হয়েছে।' : 'Offline: batch saved locally.');
+            document.getElementById('form-add-batch').reset();
+            document.getElementById('batch-district').disabled = true;
+
+            // reload UI from local
+            await loadDashboard(true);
+        }
     } catch (error) {
         console.error('Add batch error:', error);
-        alert('Failed to add batch: ' + error.message);
+        alert((currentLang==='bn'?'ব্যাচ যোগ করতে ব্যর্থ':'Failed to add batch') + ': ' + error.message);
     }
 }
 
 // Export data as CSV
 window.exportCSV = async function() {
     try {
-        const batchesRef = ref(db, 'batches/' + currentUser.phone);
-        const snapshot = await get(batchesRef);
-
-        if (!snapshot.exists()) {
-            alert('No data to export');
-            return;
+        let batches = [];
+        if(isConnected){
+            const batchesRef = ref(db, 'batches/' + currentUser.phone);
+            const snapshot = await get(batchesRef);
+            if (snapshot.exists()) batches = Object.values(snapshot.val());
+            else batches = [];
+        } else {
+            const raw = localStorage.getItem('HG_ACTIVE_BATCHES');
+            batches = raw ? JSON.parse(raw) : [];
         }
 
-        const batchData = snapshot.val();
-        const batches = Object.values(batchData);
+        if (!batches || batches.length===0) {
+            alert(currentLang==='bn' ? 'এক্সপোর্ট করার জন্য ডেটা নেই' : 'No data to export');
+            return;
+        }
 
         // Create CSV content
         let csv = "Date,Crop,Weight (kg),Division,District,Storage\n";
         batches.forEach(batch => {
-            csv += `${batch.date},${batch.cropType},${batch.weight},${batch.division},${batch.district},${batch.storage}\n`;
+            csv += `${batch.date || ''},${batch.cropType || ''},${batch.weight || ''},${batch.division || ''},${batch.district || ''},${batch.storage || ''}\n`;
         });
 
         // Download CSV file
@@ -383,14 +472,14 @@ window.exportCSV = async function() {
         const link = document.createElement("a");
         const url = URL.createObjectURL(blob);
         link.setAttribute("href", url);
-        link.setAttribute("download", `harvest_data_${currentUser.phone}_${new Date().toISOString().split('T')[0]}.csv`);
+        link.setAttribute("download", `harvest_data_${currentUser ? currentUser.phone : 'export'}_${new Date().toISOString().split('T')[0]}.csv`);
         link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     } catch (error) {
         console.error('Export error:', error);
-        alert('Failed to export data');
+        alert((currentLang==='bn'?'এক্সপোর্ট ব্যর্থ':'Failed to export data'));
     }
 }
 
@@ -407,9 +496,17 @@ window.addEventListener('DOMContentLoaded', function() {
     // Show registration page by default
     showView('view-register');
 
-    // Initialize UI text
+    // Set language UI
+    const sel = document.getElementById('languageSelect');
+    sel.value = currentLang;
     updateUIText();
 
+    // If localStorage has HG_ACTIVE_USER (previous login), we can offer quick login/demo load
+    const rawUser = localStorage.getItem('HG_ACTIVE_USER');
+    if(rawUser) {
+      // don't auto-login; user still must login via form for security, but UI will have mirror for offline workflows
+      console.log('Local HG user exists (mirror).');
+    }
 });
 document.addEventListener("DOMContentLoaded", () => {
     const homeBtn = document.getElementById("go-home");
