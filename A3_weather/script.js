@@ -1,12 +1,3 @@
-const apiKey = "83d0172bfdd2a9497f8dfefeeda4a6a6"; // Your OpenWeatherMap API key
-let currentLanguage = "en"; // Default language is English
-
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("go-home").addEventListener("click", () => {
-        window.location.href = "https://nusratmehazabin.github.io/HarvestGuard/";
-    });
-});
-
 const i18n = {
     en: {
         goHome: "Go Back to Home 🏡"
@@ -15,7 +6,8 @@ const i18n = {
         goHome: "হোমে ফিরে যান 🏡"
     }
 };
-
+const apiKey = "83d0172bfdd2a9497f8dfefeeda4a6a6"; // Your OpenWeatherMap API key
+let currentLanguage = "en"; // Default language is English
 
 // Mapping Bangla and English Upazila names to English city names
 const upazilaMapping = {
@@ -41,23 +33,10 @@ function setLanguage() {
         document.getElementById('weather-heading').innerText = "Weather Forecast";
         document.getElementById('languageLabel').innerText = "Choose Language:";
         document.getElementById('upazilaLabel').innerText = "Select Your Upazila:";
-        document.getElementById("go-home").innerText = i18n[currentLanguage].goHome;
+       
+    }
+    document.getElementById("go-home").innerText = i18n[currentLanguage].goHome;
 
-    }
-}
-const i18n = {
-    en: {
-        goHome: "Go Back to Home 🏡"
-    },
-    bn: {
-        goHome: "হোমে ফিরে যান 🏡"
-    }
-};
-function updateGoHomeButton() {
-    const btn = document.getElementById("go-home");
-    if (btn) {
-        btn.innerText = i18n[currentLanguage].goHome;
-    }
 }
 
 // Function to get weather data
@@ -150,5 +129,16 @@ function getAdvisory(language, englishAdvisory) {
     }
     return englishAdvisory;
 }
+document.addEventListener("DOMContentLoaded", () => {
+    const homeBtn = document.getElementById("go-home");
+
+    homeBtn.addEventListener("click", () => {
+        window.location.href = "https://nusratmehazabin.github.io/HarvestGuard/";
+    });
+
+    // Set default language text on load
+    homeBtn.innerText = i18n[currentLanguage].goHome;
+});
+
 
 
