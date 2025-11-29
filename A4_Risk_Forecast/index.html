@@ -47,13 +47,32 @@
       </div>
 
       <div class="form-group">
-        <label for="cropType" id="label-cropType">Crop type</label>
-        <select id="cropType">
-          <option value="paddy"
-                  data-en="Paddy (rice)"
-                  data-bn="ধান (Paddy)">Paddy (rice)</option>
-        </select>
-      </div>
+  <label for="cropType" id="label-cropType">Crop type</label>
+  <select id="cropType">
+
+    <!-- Paddy -->
+    <option value="paddy"
+            data-en="Paddy (ধান)"
+            data-bn="ধান (Paddy)">Paddy (rice)</option>
+
+    <!-- Wheat -->
+    <option value="wheat"
+            data-en="Wheat (গম)"
+            data-bn="গম (Wheat)">Wheat</option>
+
+    <!-- Potato -->
+    <option value="potato"
+            data-en="Potato (আলু)"
+            data-bn="আলু (Potato)">Potato</option>
+
+    <!-- Lentil / Dal -->
+    <option value="lentil"
+            data-en="Lentil (ডাল)"
+            data-bn="ডাল (Lentil)">Lentil (Dal)</option>
+
+  </select>
+</div>
+
 
       <div class="form-group">
         <label for="storageType" id="label-storageType">Storage type</label>
@@ -135,3 +154,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
